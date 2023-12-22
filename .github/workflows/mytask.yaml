@@ -49,5 +49,5 @@ jobs:
            uses: actions/upload-artifact@v2
            with: 
              name: petclininc_artifact
-             path: target/*.ja        
+             path: target/*.jar     
 
