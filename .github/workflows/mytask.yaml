@@ -2,7 +2,7 @@ name: CI
 on: push 
 jobs:
   sonarqube-check:
-    name: Build
+    name: sonarqube
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,5 +30,24 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.qualitygate.wait=true
-        
+  
+  deploy:
+      needs: sonarqube-check
+      name: deploy to github artifacts
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v2
+         - name: Set up JDK 1.8
+           uses: actions/setup-java@v1
+           with:
+             java-version: '17'
+             distribution: 'adopt'
+             cache: maven
+         - name: Build with Maven
+           run: mvn package
+         - name: Step 3 - Use the Upload Artifact GitHub Action
+           uses: actions/upload-artifact@v2
+           with: 
+             name: petclininc_artifact
+             path: target/*.ja        
 
