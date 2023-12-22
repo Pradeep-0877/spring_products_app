@@ -19,6 +19,9 @@
 	</parent>
 
 	<properties>
+                <sonar.host.url>http://34.16.179.166:9000/</sonar.host.url>
+                <sonar.login>squ_7a0e552c791a2e8f559529c5837e2aa0abbf51b8</sonar.login>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
 	</properties>
